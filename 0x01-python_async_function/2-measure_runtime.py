@@ -11,7 +11,6 @@ async def measure_time(n: int, max_delay: int) -> float:
     """
     start_time = time.time()
 
-    # Run wait_n(n, max_delay) and wait for it to complete
     await wait_n(n, max_delay)
 
     end_time = time.time()
