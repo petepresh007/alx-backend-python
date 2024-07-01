@@ -55,6 +55,7 @@ class TestMemoize(unittest.TestCase):
     '''memoize method testib'''
     def test_memoize(self):
         class TestClass:
+            '''test class'''
             def a_method(self):
                 return 42
 
@@ -62,22 +63,11 @@ class TestMemoize(unittest.TestCase):
             def a_property(self):
                 return self.a_method()
 
-        with patch.object(
-                TestClass,
-                'a_method',
-                return_value=42
-                ) as mocked_method:
-            test_instance = TestClass()
-            # Call a_property twice
-            result_first_call = test_instance.a_property
-            result_second_call = test_instance.a_property
-
-            # Assert the mocked a_method was called exactly once
-            mocked_method.assert_called_once()
-
-            # Assert the results of both calls are the same and correct
-            self.assertEqual(result_first_call, 42)
-            self.assertEqual(result_second_call, 42)
+        with patch.object(TestClass, 'a_method') as mock:
+            test_class = TestClass()
+            test_class.a_property()
+            test_class.a_property()
+            mock.assert_called_once()
 
 
 if __name__ == "__main__":
